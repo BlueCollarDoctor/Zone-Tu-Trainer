@@ -1,6 +1,6 @@
-# Zone Tu Trainer (NEO-RHYTHM)
+# Zone Tu Trainer 
 
-A heart rate zone monitor Progressive Web App (PWA) with BLE chest strap support, demo mode, audio beep alerts, and vibration feedback.
+A simple Green, Yellow, Red screen heart rate zone monitor Progressive Web App (PWA) with BLE chest strap support, demo mode, audio beep alerts, and vibration feedback.
 
 **Live App:** https://zvfyn6yvpuxsk.kimi.page
 
