@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#000000">
+  <title>NEO-RHYTHM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="pulse-glow" id="pulse-glow"></div>
+    <div class="shimmer-overlay"></div>
+    <div class="urgent-ring"></div>
+    <div class="urgent-ring"></div>
+    <div class="urgent-ring"></div>
+    <div class="urgent-ring"></div>
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <button class="icon-btn off" id="btn-audio" aria-label="Toggle audio">
+          <svg id="icon-vol-on" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg id="icon-vol-off" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+        <button class="icon-btn off" id="btn-vib" aria-label="Toggle vibration">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 14.5V9.5"></path>
+            <path d="M6 17V7"></path>
+            <rect x="9" y="2" width="6" height="20" rx="2"></rect>
+            <path d="M18 17V7"></path>
+            <path d="M22 14.5V9.5"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="status-pill">
+        <div class="status-dot"></div>
+        <span id="status-text">Demo Mode</span>
+      </div>
+      <div class="time" id="clock"></div>
+    </div>
+    <div class="top-half">
+      <div class="heart-wrap" id="heart-wrap">
+        <svg class="heart-icon" viewBox="0 0 100 90" fill="currentColor">
+          <path d="M50 85 C50 85 5 55 5 28 C5 13 16 3 28 3 C38 3 46 9 50 17 C54 9 62 3 72 3 C84 3 95 13 95 28 C95 55 50 85 50 85Z"/>
+        </svg>
+      </div>
+      <div class="bpm-number" id="bpm-display">--</div>
+      <div class="bpm-label">BPM</div>
+      <div class="intensity-bar hidden" id="intensity-bar">
+        <div class="intensity-seg"></div>
+        <div class="intensity-seg"></div>
+        <div class="intensity-seg"></div>
+        <div class="intensity-seg"></div>
+        <div class="intensity-seg"></div>
+        <span class="intensity-label">INTENSITY</span>
+      </div>
+    </div>
+    <div class="divider"><div class="divider-dot"></div></div>
+    <div class="bottom-half" id="bottom-half">
+      <div class="zone-label">ZONE</div>
+      <div class="zone-number" id="zone-display">1</div>
+      <div class="zone-name" id="zone-name">RECOVERY</div>
+      <div class="zone-range" id="zone-range">&lt; 100 BPM</div>
+      <div class="zone-progress-wrap">
+        <div class="zone-progress-track">
+          <div class="zone-progress-fill" id="zone-progress"></div>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="demo">DEMO</button>
+        <button class="mode-tab" data-mode="bluetooth">BLE HR</button>
+        <button class="mode-tab" data-mode="manual">MANUAL</button>
+      </div>
+      <div class="mode-panel" id="panel-demo">
+        <button class="action-btn" id="btn-demo-toggle">
+          <svg id="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="hidden"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <svg id="icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span id="demo-btn-text">Pause</span>
+        </button>
+      </div>
+      <div class="mode-panel hidden" id="panel-bluetooth">
+        <button class="action-btn" id="btn-ble-connect">
+          <span id="ble-btn-text">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"></polyline></svg>
+            Connect BLE HR Monitor
+          </span>
+        </button>
+        <div class="ble-error hidden" id="ble-error"></div>
+        <div class="ble-hint">Works with Polar H10, Wahoo TICKR, Garmin HRM, and all BLE chest straps.</div>
+      </div>
+      <div class="mode-panel hidden" id="panel-manual">
+        <div class="manual-row">
+          <input type="range" class="slider" id="manual-slider" min="40" max="200" value="85">
+          <div class="manual-value" id="manual-value">85</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
